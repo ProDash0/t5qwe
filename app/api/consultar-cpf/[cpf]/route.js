@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
 export async function GET(request, { params }) {
-  const { cpf } = params;
+  const { cpf } = await params;
   const token = 'zqniPtC6uIfw6V0lF4mfDOP9NHPAJD97';
   const apiUrl = `https://zerolimis-1.onrender.com/api/consultar?type=cpf&value=${cpf}&token=${token}`;
 

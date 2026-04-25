@@ -267,7 +267,7 @@ export default function Home() {
         {notifications.map(n => (
           <div key={n.id} className="notification">
             <div className="notify-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M20 6L9 17l-5-5"/>
               </svg>
             </div>
@@ -318,7 +318,7 @@ export default function Home() {
                 </div>
                 <div className="vsl-footer-info">
                   <p>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style={{verticalAlign: 'middle', marginRight: '4px'}}>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{verticalAlign: 'middle', marginRight: '4px'}}>
                       <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
                     </svg>
                     Conexão Segura e Criptografada
@@ -357,21 +357,21 @@ export default function Home() {
                 <div className="benefits-grid">
                   <div className="benefit-item">
                     <div className="benefit-icon">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22m5-18H8.5a4.5 4.5 0 0 0 0 9h7a4.5 4.5 0 0 1 0 9H7"></path></svg>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 1v22m5-18H8.5a4.5 4.5 0 0 0 0 9h7a4.5 4.5 0 0 1 0 9H7"></path></svg>
                     </div>
                     <h3>Descontos Históricos</h3>
                     <p>Aproveite as maiores reduções do ano para quitar seus débitos à vista ou parcelado com condições especiais.</p>
                   </div>
                   <div className="benefit-item">
                     <div className="benefit-icon">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
                     </div>
                     <h3>Consulta Oficial</h3>
                     <p>Sistema 100% seguro e integrado com a base de dados nacional para garantir sua total proteção.</p>
                   </div>
                   <div className="benefit-item">
                     <div className="benefit-icon">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
                     </div>
                     <h3>Crédito Imediato</h3>
                     <p>Após a confirmação do pagamento, seu nome é limpo em até 5 dias e seu score volta a subir.</p>
