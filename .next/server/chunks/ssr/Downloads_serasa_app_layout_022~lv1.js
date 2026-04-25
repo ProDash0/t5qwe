@@ -1,0 +1,3 @@
+module.exports=[11627,a=>{"use strict";var b=a.i(46718);a.s(["default",0,function({children:a}){return(0,b.jsxs)("html",{lang:"pt-br",children:[(0,b.jsxs)("head",{children:[(0,b.jsx)("link",{rel:"preconnect",href:"https://fonts.googleapis.com"}),(0,b.jsx)("link",{rel:"preconnect",href:"https://fonts.gstatic.com",crossOrigin:"anonymous"}),(0,b.jsx)("link",{href:"https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap",rel:"stylesheet"})]}),(0,b.jsx)("body",{children:a})]})},"metadata",0,{title:"Serasa Limpa Nome - Recupere seu Crédito",description:"Regularize seu CPF e volte a ter crédito no mercado"}])},80465,a=>{a.n(a.i(11627))}];
+
+//# sourceMappingURL=Downloads_serasa_app_layout_022~lv1.js.map

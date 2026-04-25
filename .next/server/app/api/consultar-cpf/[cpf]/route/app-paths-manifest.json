@@ -1,0 +1,3 @@
+{
+  "/api/consultar-cpf/[cpf]/route": "app/api/consultar-cpf/[cpf]/route.js"
+}

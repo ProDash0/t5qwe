@@ -1,0 +1,3 @@
+module.exports=[71280,(a,b,c)=>{let{createClientModuleProxy:d}=a.r(36661);a.n(d("[project]/Downloads/serasa/node_modules/next/dist/client/components/builtin/global-error.js <module evaluation>"))},78663,(a,b,c)=>{let{createClientModuleProxy:d}=a.r(36661);a.n(d("[project]/Downloads/serasa/node_modules/next/dist/client/components/builtin/global-error.js"))},89442,a=>{"use strict";a.i(71280);var b=a.i(78663);a.n(b)},64451,a=>{a.n(a.i(89442))}];
+
+//# sourceMappingURL=0nl7_next_dist_client_components_builtin_global-error_0le_4su.js.map

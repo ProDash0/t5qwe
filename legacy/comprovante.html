@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento Confirmado - Serasa Limpa Nome</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="https://www.serasa.com.br/favicon.ico" type="image/x-icon">
+    <script src="protection.js"></script>
+    <style>
+        .success-card {
+            text-align: center;
+            padding: 60px 40px;
+        }
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: #25d366;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin: 0 auto 30px;
+            animation: scaleUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes scaleUp {
+            from { transform: scale(0); }
+            to { transform: scale(1); }
+        }
+        .confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <main class="container">
+        <div class="card success-card mt-5">
+            <div class="success-icon">✓</div>
+            <h1 class="mb-3" style="color: var(--secondary-color)">Pagamento Confirmado!</h1>
+            <p class="mb-4">Parabéns! Seu pagamento foi processado com sucesso. Suas dívidas foram quitadas e seu nome será limpo em até 5 dias úteis.</p>
+            
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; text-align: left; margin-bottom: 30px;">
+                <p class="small text-muted mb-1">Comprovante gerado em:</p>
+                <p class="font-weight-bold mb-3" id="current-date"></p>
+                <p class="small text-muted mb-1">Código da Transação:</p>
+                <p class="font-weight-bold mb-0">#SR-9921-X882</p>
+            </div>
+
+            <a href="index.html" class="btn-primary" style="display: block; text-decoration: none;">VOLTAR PARA A HOME</a>
+            <p class="mt-4 small text-muted">Um comprovante detalhado foi enviado para o seu e-mail cadastrado.</p>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('current-date').textContent = new Date().toLocaleString();
+    </script>
+</body>
+</html>

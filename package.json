@@ -1,0 +1,24 @@
+{
+  "name": "serasa",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "lucide-react": "^1.11.0",
+    "next": "^16.2.4",
+    "node-fetch": "^2.7.0",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5"
+  }
+}

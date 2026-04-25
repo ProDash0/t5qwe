@@ -1,0 +1,12 @@
+var R=require("../../chunks/ssr/[turbopack]_runtime.js")("server/app/_not-found/page.js")
+R.c("server/chunks/ssr/[root-of-the-server]__12~ntiz._.js")
+R.c("server/chunks/ssr/0nl7_next_dist_esm_build_templates_app-page_0klag7p.js")
+R.c("server/chunks/ssr/[root-of-the-server]__0rd53i3._.js")
+R.c("server/chunks/ssr/[root-of-the-server]__0jhwze9._.js")
+R.c("server/chunks/ssr/Downloads_serasa_app_layout_022~lv1.js")
+R.c("server/chunks/ssr/0nl7_next_dist_client_components_0nvu.6j._.js")
+R.c("server/chunks/ssr/0nl7_next_dist_client_components_builtin_forbidden_0.2l-z2.js")
+R.c("server/chunks/ssr/0nl7_next_dist_client_components_builtin_unauthorized_005krva.js")
+R.c("server/chunks/ssr/Downloads_serasa__next-internal_server_app__not-found_page_actions_0liyskf.js")
+R.m(19224)
+module.exports=R.m(19224).exports
