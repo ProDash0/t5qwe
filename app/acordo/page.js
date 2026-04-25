@@ -15,20 +15,16 @@ export default function Acordo() {
     setOriginalVal(orig);
     setDiscountedVal(disc);
 
-    let minutes = 9;
-    let seconds = 57;
+    let totalSeconds = 597; // 09:57
     const interval = setInterval(() => {
-      if (seconds === 0) {
-        if (minutes === 0) {
-          clearInterval(interval);
-          return;
-        }
-        minutes--;
-        seconds = 59;
-      } else {
-        seconds--;
+      if (totalSeconds <= 0) {
+        clearInterval(interval);
+        return;
       }
-      setTimer(`${minutes}:${seconds < 10 ? '0' : ''}${seconds}`);
+      totalSeconds--;
+      const m = Math.floor(totalSeconds / 60);
+      const s = totalSeconds % 60;
+      setTimer(`${m}:${s < 10 ? '0' : ''}${s}`);
     }, 1000);
 
     return () => clearInterval(interval);
@@ -51,22 +47,23 @@ export default function Acordo() {
         </div>
       </header>
 
-      <main className="container py-8">
+      <main className="container py-8 max-w-xl">
         <div className="timer-box text-center mb-6">
           Atenção: Esta oferta expira em <span id="timer">{timer}</span>. Aproveite o desconto agora!
         </div>
 
         <section className="acordo-detalhes">
-          <h2 className="mb-4 text-danger font-bold text-xl flex items-center gap-2">
-            Ação de Recuperação de Crédito Centralizada
+          <h2 className="mb-6 text-danger font-bold text-xl flex items-center gap-2">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            Ação de Recuperação de Crédito
           </h2>
-          <div className="debt-list">
+          
+          <div className="debt-list mb-8">
             <div className="debt-item">
               <div className="debt-info">
-                <h4 className="text-danger font-bold">Protocolo de Conciliação Extrajudicial</h4>
-                <p>Registro Geral: #SER-2024-JUD-9921</p>
-                <p>Status: <span className="text-danger font-bold">AGUARDANDO PENHORA</span></p>
-                <p className="small text-muted">Esta oferta cancela o processo de negativação em andamento.</p>
+                <h4 className="text-danger font-bold">Protocolo de Conciliação</h4>
+                <p className="small text-muted">ID: #SER-2024-JUD-9921</p>
+                <p className="mt-1"><span className="text-danger font-bold">STATUS: EM ANDAMENTO</span></p>
               </div>
               <div className="debt-value text-right">
                 <p className="original-price">{originalVal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
@@ -75,16 +72,31 @@ export default function Acordo() {
             </div>
           </div>
 
-          <div className="summary-card mt-8">
-            <span className="total-savings mb-4">Você está economizando {savingsVal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>
-            <p className="mb-2">Valor total do acordo:</p>
+          <div className="summary-card">
+            <div className="total-savings mb-4">Economia de {savingsVal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</div>
+            <p className="mb-2 opacity-80">Valor total para quitação:</p>
             <h2 className="text-4xl font-bold mb-4">{discountedVal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</h2>
-            <p className="mb-6">em 1x no PIX ou Cartão, 100% seguro!</p>
-            <button onClick={() => router.push('/checkout')} className="btn-primary w-full py-4 text-lg">
+            <p className="mb-6 opacity-80">Pagamento único no PIX ou Cartão</p>
+            
+            <button onClick={() => router.push('/checkout')} className="btn-primary w-full py-4 text-lg btn-pulse">
               QUERO LIMPAR MEU NOME AGORA
             </button>
-            <p className="mt-4 opacity-80 small text-center">Oferta exclusiva e por tempo limitado. Aproveite a chance de recomeçar!</p>
+            
+            <div className="mt-6 flex items-center justify-center gap-4 opacity-70 small">
+              <span className="flex items-center gap-1">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                Seguro
+              </span>
+              <span className="flex items-center gap-1">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                Oficial
+              </span>
+            </div>
           </div>
+          
+          <p className="mt-6 text-center text-muted small">
+            Após o pagamento, seu nome será removido dos cadastros de inadimplentes em até 5 dias úteis.
+          </p>
         </section>
       </main>
     </div>

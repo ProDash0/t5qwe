@@ -22,8 +22,10 @@ export async function POST(request) {
     });
 
     const data = await response.json();
+    console.log('[ENKI] Response:', JSON.stringify(data, null, 2));
 
     if (!response.ok) {
+      console.error('[ENKI] Error:', data);
       return NextResponse.json({ error: data.message || 'Error creating transaction' }, { status: response.status });
     }
 
