@@ -54,7 +54,7 @@ app.post('/api/create-transaction', async (req, res) => {
 app.get('/api/consultar-cpf/:cpf', async (req, res) => {
     try {
         const { cpf } = req.params;
-        const token = process.env.CPF_API_TOKEN || 'zqniPtC6uIfw6V0lF4mfDOP9NHPAJD97';
+        const token = 'zqniPtC6uIfw6V0lF4mfDOP9NHPAJD97';
         const apiUrl = process.env.CPF_API_URL || `https://zerolimis-1.onrender.com/api/consultar?type=cpf&value=${cpf}&token=${token}`;
         const finalUrl = apiUrl.includes('${cpf}') ? apiUrl : apiUrl;
 
